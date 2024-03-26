@@ -14,8 +14,6 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.8.1",
-    "eslint": "^8.57.0",
-    "eslint-config-google": "^0.14.0",
     "html-webpack-plugin": "^5.5.3",
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
@@ -25,6 +23,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "pocketbase": "^0.21.1"
   }
 }

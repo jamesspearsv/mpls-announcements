@@ -4,11 +4,11 @@ import './styles/main.css';
 
 // **MODULE IMPORTS** //
 import {buildPost} from './js/modules';
-import api from './js/api';
+import backend from './js/backend';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const postForm = document.getElementById('post-form');
-  postForm.addEventListener('submit', (event) => {
+  const form = document.getElementById('post-form');
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
     const elements = event.target.elements;
 
@@ -17,7 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const author = elements.author.value;
 
     const post = buildPost(title, body, author);
-    console.log(post);
-    api.pushPost(post);
+    // console.log(post);
+    // backend.pushPost(post)
+    backend.getPosts();
+
+    form.reset()
   });
 });
