@@ -1,18 +1,18 @@
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: "./src/main.js",
+  mode: 'development',
+  entry: './src/main.js',
   output: {
-    filename: "bundle.js",
-    path: path.resolve(__dirname, "dist"),
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
     clean: true,
   },
-  devtool: "inline-source-map",
+  devtool: 'inline-source-map',
   devServer: {
     static: {
-      directory: path.resolve(__dirname, "dist"),
+      directory: path.resolve(__dirname, 'dist'),
     },
     port: 3000,
     open: true,
@@ -22,7 +22,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "./src/template.html",
+      template: './src/templates/template.html',
     }),
   ],
   module: {
@@ -31,23 +31,23 @@ module.exports = {
       // handle css
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       // handle assests
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        type: "asset/resource",
+        type: 'asset/resource',
       },
       // handel sass
       {
         test: /\.s[ac]ss$/i,
         use: [
           // Creates `style` nodes from JS strings
-          "style-loader",
+          'style-loader',
           // Translates CSS into CommonJS
-          "css-loader",
+          'css-loader',
           // Compiles Sass to CSS
-          "sass-loader",
+          'sass-loader',
         ],
       },
     ],

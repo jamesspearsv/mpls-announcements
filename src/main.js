@@ -3,7 +3,7 @@ import 'normalize.css';
 import './styles/main.css';
 
 // **MODULE IMPORTS** //
-import {buildPost} from './js/modules';
+import { buildPost } from './js/modules';
 import backend from './js/backend';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -21,6 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // backend.pushPost(post)
     backend.getPosts();
 
-    form.reset()
+    form.reset();
   });
 });
