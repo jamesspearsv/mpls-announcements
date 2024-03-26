@@ -1,5 +1,5 @@
 {
-  "name": "webpack_template",
+  "name": "mpls-announcements",
   "version": "1.0.0",
   "description": "",
   "private": true,
@@ -14,7 +14,8 @@
   "license": "MIT",
   "devDependencies": {
     "css-loader": "^6.8.1",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
+    "eslint-config-google": "^0.14.0",
     "html-webpack-plugin": "^5.5.3",
     "sass": "^1.72.0",
     "sass-loader": "^14.1.1",
@@ -22,5 +23,8 @@
     "webpack": "^5.88.2",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.15.1"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
   }
 }
