@@ -4,6 +4,6 @@
 
 - [ ] Build posting funtion
 - [ ] Build viewing function
-- [ ] Implement announcements
+- [x] Implement basic announcements view
 - [ ] Implement user auth view
 - [ ] Implement new post view
