@@ -9,11 +9,9 @@ const backend = (() => {
     try {
       const records = await pb.collection('posts').getList();
 
-      if (!records.ok) {
-        throw new Error('Status not ok');
-      }
+      if (records.code === 400) throw new Error(records.message);
 
-      console.log(records);
+      return records.items;
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +22,7 @@ const backend = (() => {
     console.log(record);
   }
 
-  return { getPosts, pushPost };
+  return {getPosts, pushPost};
 })();
 
 export default backend;
