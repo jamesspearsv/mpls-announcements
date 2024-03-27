@@ -1,9 +1,10 @@
-# A simple announcements and post system for embed on different sites.
+# A simple announcement and post system for embedding on MPLS intranet site.
 
 ## Roadmap
 
-- [ ] Build posting funtion
-- [ ] Build viewing function
+- [x] Set up backend connection
+- [x] Build viewing function
 - [x] Implement basic announcements view
-- [ ] Implement user auth view
-- [ ] Implement new post view
+- [x] Implement basic user auth system
+- [x] Implement posting system and view
+- [ ] Improve error handling
