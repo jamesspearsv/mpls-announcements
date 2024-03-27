@@ -74,8 +74,8 @@ main {
 }
 
 // New post form
-#new-post-modal::backdrop {
-  background-color: white;
+.modal::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .form {

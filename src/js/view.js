@@ -30,6 +30,14 @@ const view = (() => {
     }
   };
 
+  const clearPosts = () => {
+    const postsContainer = document.getElementById('posts-container');
+
+    while (postsContainer.hasChildNodes()) {
+      postsContainer.removeChild(postsContainer.firstChild);
+    }
+  };
+
   const openModal = (modal) => {
     modal.showModal();
   };
@@ -38,7 +46,7 @@ const view = (() => {
     modal.closeModal();
   };
 
-  return { buildPosts, openModal, closeModal };
+  return { buildPosts, clearPosts, openModal, closeModal };
 })();
 
 export default view;

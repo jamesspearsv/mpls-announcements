@@ -7,11 +7,13 @@ const pb = new PocketBase(url);
 const backend = (() => {
   async function getPosts() {
     try {
-      const records = await pb.collection('posts').getList();
+      const records = await pb
+        .collection('posts')
+        .getFullList({ sort: '-created' });
 
       if (records.code === 400) throw new Error(records.message);
 
-      return records.items;
+      return records;
     } catch (error) {
       console.log(error);
     }
@@ -22,7 +24,29 @@ const backend = (() => {
     console.log(record);
   }
 
-  return {getPosts, pushPost};
+  async function authUser(username, password) {
+    try {
+      const authData = await pb
+        .collection('users')
+        .authWithPassword(username, password);
+
+      if (authData.status === 400) throw new Error(authData.message);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  function checkAuth() {
+    return pb.authStore.isValid;
+  }
+
+  function getCurrentUser() {
+    return pb.authStore.model.name;
+  }
+
+  return { getPosts, pushPost, authUser, checkAuth, getCurrentUser };
 })();
 
 export default backend;
