@@ -27,13 +27,14 @@ document.addEventListener('DOMContentLoaded', () => {
     event.preventDefault();
     const elements = event.target.elements;
 
-    const title = elements.title.value;
-    const body = elements.body.value;
-    const author = elements.author.value;
-
-    const post = helper.buildPost(title, body, author);
-    // console.log(post);
-    // backend.pushPost(post)
+    // build post from submitted data
+    const post = helper.buildPost(
+      elements.title.value,
+      elements.body.value,
+      elements.author.value
+    );
+    // TODO: push post to back end
+    console.log(post);
     form.reset();
   });
 });

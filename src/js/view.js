@@ -13,7 +13,7 @@ const view = (() => {
 
       const date = document.createElement('div');
       date.classList.add('post-date');
-      date.textContent = post.created;
+      date.textContent = new Date(post.created).toDateString();
 
       const body = document.createElement('p');
       body.classList.add('post-body');
