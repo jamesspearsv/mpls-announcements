@@ -1,6 +1,7 @@
 // **STYLE IMPORTS** //
 import 'normalize.css';
 import './styles/main.scss';
+import './styles/reset.css';
 
 // **MODULE IMPORTS** //
 import helper from './js/helper';
@@ -14,17 +15,19 @@ document.addEventListener('DOMContentLoaded', () => {
     view.buildPosts(posts);
   })();
 
-  // new modal
+  // Control selecting and opening modal
   const newPostButton = document.getElementById('new-post-button');
   newPostButton.addEventListener('click', () => {
+    // Select modal based on user auth status
     const modal = backend.checkAuth()
       ? document.getElementById('post-modal')
       : document.getElementById('login-modal');
 
-    modal.showModal();
+    // Show selected modal
+    view.openModal(modal);
   });
 
-  // Handle login
+  // Handle login submission
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -41,31 +44,42 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
-    document.getElementById('login-modal').close();
   });
 
-  // Submit new post form
+  // Handle new post submission
   const form = document.getElementById('post-form');
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const elements = event.target.elements;
 
-    // build post from submitted data
+    // Build post from submitted data
     const post = helper.buildPost(
       elements.title.value,
       elements.body.value,
       backend.getCurrentUser()
     );
 
-    // TODO: push post to back end
-    console.log(post);
     await backend.pushPost(post);
 
-    document.getElementById('post-modal').close();
+    view.closeModal(document.getElementById('post-modal'));
     view.clearPosts();
     const posts = await backend.getPosts();
     view.buildPosts(posts);
     form.reset();
+  });
+
+  //  Set modal close buttons
+  const modalClosers = document.querySelectorAll('.modal-close');
+  modalClosers.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      const modal = event.target.parentElement.parentElement;
+
+      const form = event.target.parentElement.nextElementSibling;
+
+      view.closeModal(modal);
+      form.reset();
+    });
   });
 });

@@ -11,8 +11,6 @@ const backend = (() => {
         .collection('posts')
         .getFullList({ sort: '-created' });
 
-      if (records.code === 400) throw new Error(records.message);
-
       return records;
     } catch (error) {
       console.log(error);
@@ -20,8 +18,11 @@ const backend = (() => {
   }
 
   async function pushPost(post) {
-    const record = await pb.collection('posts').create(post);
-    console.log(record);
+    try {
+      await pb.collection('posts').create(post);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   async function authUser(username, password) {
@@ -30,10 +31,9 @@ const backend = (() => {
         .collection('users')
         .authWithPassword(username, password);
 
-      if (authData.status === 400) throw new Error(authData.message);
-
       return true;
     } catch (error) {
+      console.log(error);
       return false;
     }
   }

@@ -15,15 +15,23 @@ const view = (() => {
       date.classList.add('post-date');
       date.textContent = new Date(post.created).toDateString();
 
+      const divider = document.createElement('div');
+      divider.classList.add('divider');
+
       const body = document.createElement('p');
       body.classList.add('post-body');
       body.textContent = post.body;
 
+      const byline = document.createElement('div');
+      byline.classList.add('post-byline');
+      byline.appendChild(author);
+      byline.appendChild(date);
+
       const announcement = document.createElement('div');
       announcement.classList.add('post');
       announcement.appendChild(title);
-      announcement.appendChild(author);
-      announcement.appendChild(date);
+      announcement.appendChild(byline);
+      announcement.appendChild(divider);
       announcement.appendChild(body);
 
       postsContainer.appendChild(announcement);
@@ -43,7 +51,7 @@ const view = (() => {
   };
 
   const closeModal = (modal) => {
-    modal.closeModal();
+    modal.close();
   };
 
   return { buildPosts, clearPosts, openModal, closeModal };

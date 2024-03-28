@@ -20,23 +20,39 @@
           </div>
         -->
       </section>
-      <button id="new-post-button"><span>&#43;</span></button>
+      <button id="new-post-button">Add New Announcement</button>
     </main>
     <dialog id="post-modal" class="modal">
+      <div class="modal-heading">
+        <h2 class="modal-title">New Announcement</h2>
+        <button class="modal-close">X</button>
+      </div>
       <form class="form" id="post-form">
-        <label for="title">Title</label>
-        <input type="text" name="title" />
-        <label for="body">Body</label>
-        <textarea name="body" id="" cols="30" rows="10"></textarea>
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text" name="title" required />
+        </div>
+        <div class="form-group">
+          <label for="body">Body</label>
+          <textarea name="body" id="" cols="30" rows="10" required></textarea>
+        </div>
         <button type="submit">Post</button>
       </form>
     </dialog>
     <dialog id="login-modal" class="modal">
+      <div class="modal-heading">
+        <h2 class="modal-title">Login</h2>
+        <button class="modal-close">X</button>
+      </div>
       <form class="form" id="login-form">
-        <label for="user">Username</label>
-        <input type="text" name="user" />
-        <label for="pwd">Password</label>
-        <input type="password" name="pwd" id="pwd" />
+        <div class="form-group">
+          <label for="user">Username</label>
+          <input type="text" name="user" required />
+        </div>
+        <div class="form-group">
+          <label for="pwd">Password</label>
+          <input type="password" name="pwd" id="pwd" required />
+        </div>
         <button type="submit">Login</button>
         <div>TODO: Error Message</div>
       </form>
