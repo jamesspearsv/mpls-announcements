@@ -6,6 +6,7 @@
 $post_container_width: 700px;
 $color_primary: #185c36;
 $color_secondary: #ed9821;
+$color_accent: #e5e5e5;
 $box_shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 
 :root {
@@ -19,6 +20,10 @@ main {
   margin: auto;
   justify-content: space-between;
   padding: 10px;
+}
+
+button {
+  cursor: pointer;
 }
 
 // Utility classes
@@ -106,9 +111,21 @@ main {
     justify-content: space-between;
     margin-bottom: 1rem;
 
-    button {
+    .modal-title {
+      color: $color_primary;
+    }
+
+    .modal-close {
       height: 2rem;
       width: 2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.5rem;
+      font-weight: 200;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
@@ -124,13 +141,21 @@ main {
       padding: 0.5rem;
     }
 
-    button {
+    input,
+    textarea {
+      background-color: $color_accent;
       border: none;
       border-radius: 5px;
     }
 
+    button {
+      border: none;
+      border-radius: 5px;
+      background-color: $color_secondary;
+    }
+
     label {
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
 
     .form-group {

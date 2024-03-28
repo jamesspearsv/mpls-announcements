@@ -18,6 +18,8 @@ const backend = (() => {
   }
 
   async function pushPost(post) {
+    if (!backend.checkAuth()) return;
+
     try {
       await pb.collection('posts').create(post);
     } catch (error) {
