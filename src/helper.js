@@ -1,9 +1,9 @@
 const helper = (() => {
-  const buildPost = (title, body, user) => {
+  const buildPost = (title, body, author) => {
     return {
       title,
       body,
-      author: user.name,
+      author,
     };
   };
 

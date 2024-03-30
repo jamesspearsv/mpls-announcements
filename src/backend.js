@@ -45,7 +45,7 @@ const backend = (() => {
   }
 
   function getCurrentUser() {
-    return pb.authStore.model;
+    return pb.authStore.model.name;
   }
 
   return { getPosts, pushPost, authUser, checkAuth, getCurrentUser };

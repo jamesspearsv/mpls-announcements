@@ -1,14 +1,24 @@
 // **STYLE IMPORTS** //
 import 'normalize.css';
-import './styles/main.scss';
-import './styles/reset.css';
+import '../styles/main.scss';
+import '../styles/reset.css';
 
 // **MODULE IMPORTS** //
-import helper from './js/helper';
-import backend from './js/backend';
-import view from './js/view';
+import helper from './helper';
+import backend from './backend';
+import view from './view';
 
 document.addEventListener('DOMContentLoaded', () => {
+  const test = document.getElementById('test');
+  test.addEventListener('click', async () => {
+    const user = await backend.getCurrentUser();
+    if (user) {
+      console.log(user);
+    } else {
+      console.log('no user');
+    }
+  });
+
   // Get announcements when page is loaded.
   (async () => {
     const posts = await backend.getPosts();
@@ -53,12 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
   form.addEventListener('submit', async (event) => {
     event.preventDefault();
     const elements = event.target.elements;
+    const user = backend.getCurrentUser();
 
     // Build post from submitted data
     const post = helper.buildPost(
       elements.title.value,
       elements.body.value,
-      backend.getCurrentUser()
+      user.name
     );
 
     await backend.pushPost(post);
