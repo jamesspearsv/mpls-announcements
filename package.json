@@ -9,7 +9,7 @@
     "test": "jest ./src/tests/*.test.js",
     "watch": "jest --watchAll",
     "dev": "parcel -p 3000 src/pages/*.html",
-    "build": "rm -rf dist/* && parcel build src/pages/*.html",
+    "build": "rm -rf dist/* && parcel build src/pages/index.html --public-url ./",
     "publish": "git subtree push --prefix dist origin gh-pages"
   },
   "author": "",
