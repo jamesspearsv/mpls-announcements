@@ -7,6 +7,7 @@ import '../styles/reset.css';
 import helper from './helper';
 import backend from './backend';
 import view from './view';
+import { assertArrowFunctionExpression } from '@babel/types';
 
 document.addEventListener('DOMContentLoaded', () => {
   const test = document.getElementById('test');
@@ -22,7 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Get announcements when page is loaded.
   (async () => {
     const posts = await backend.getPosts();
-    view.buildPosts(posts);
+    const user = await backend.getCurrentUser();
+    view.buildPosts(posts, user);
   })();
 
   // Control selecting and opening modal
@@ -56,6 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
+    const post = await backend.getPosts();
+    const user = await backend.getCurrentUser();
+    view.clearPosts();
+    view.buildPosts(post, user);
   });
 
   // Handle new post submission
@@ -65,12 +71,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = event.target.elements;
     const user = backend.getCurrentUser();
 
+    console.log(user.name);
+
     // Build post from submitted data
     const post = helper.buildPost(
       elements.title.value,
       elements.body.value,
-      user.name
+      user.name,
+      user.id
     );
+
+    console.log(post);
 
     await backend.pushPost(post);
 

@@ -11,6 +11,8 @@ const backend = (() => {
         .collection('posts')
         .getFullList({ sort: '-created' });
 
+      console.log(records);
+
       return records;
     } catch (error) {
       console.log(error);
@@ -22,6 +24,16 @@ const backend = (() => {
 
     try {
       await pb.collection('posts').create(post);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function deletePost(id) {
+    if (!backend.authUser()) return;
+
+    try {
+      await pb.collection('posts').delete(id);
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +60,14 @@ const backend = (() => {
     return pb.authStore.model;
   }
 
-  return { getPosts, pushPost, authUser, checkAuth, getCurrentUser };
+  return {
+    getPosts,
+    pushPost,
+    deletePost,
+    authUser,
+    checkAuth,
+    getCurrentUser,
+  };
 })();
 
 export default backend;

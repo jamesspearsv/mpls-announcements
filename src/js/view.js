@@ -1,5 +1,7 @@
+import backend from './backend';
+
 const view = (() => {
-  const buildPosts = (posts) => {
+  const buildPosts = (posts, currentUser) => {
     const postsContainer = document.getElementById('posts-container');
 
     for (let post of posts) {
@@ -15,6 +17,28 @@ const view = (() => {
       date.classList.add('post-date');
       date.textContent = new Date(post.created).toDateString();
 
+      let del;
+      if (currentUser) {
+        del = document.createElement('button');
+        del.textContent = 'Delete Post';
+        del.onclick = async () => {
+          // backend.deletePost(post.id);
+          const user = await backend.getCurrentUser();
+          const updatedPosts = await backend.getPosts();
+
+          console.log(user);
+          console.log(updatedPosts);
+          view.clearPosts();
+          view.buildPosts(updatedPosts, user);
+        };
+      }
+
+      const byline = document.createElement('div');
+      byline.classList.add('post-byline');
+      byline.appendChild(author);
+      byline.appendChild(date);
+      if (currentUser) byline.appendChild(del);
+
       const divider = document.createElement('div');
       divider.classList.add('divider');
 
@@ -22,15 +46,12 @@ const view = (() => {
       body.classList.add('post-body');
       body.textContent = post.body;
 
-      const byline = document.createElement('div');
-      byline.classList.add('post-byline');
-      byline.appendChild(author);
-      byline.appendChild(date);
-
       const announcement = document.createElement('div');
       announcement.classList.add('post');
+      announcement.dataset.author_id = post.author_id;
+      announcement.dataset.post_id = post.id;
       announcement.appendChild(title);
-      announcement.appendChild(byline);
+      if (currentUser) announcement.appendChild(byline);
       announcement.appendChild(divider);
       announcement.appendChild(body);
 
