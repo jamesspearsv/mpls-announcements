@@ -50,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loginForm.reset();
     const posts = await backend.getPosts();
     const user = backend.getCurrentUser();
-    view.clearPosts();
     view.buildPosts(posts, user);
   });
 
@@ -72,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
     await backend.pushPost(post);
 
     view.closeModal(document.getElementById('post-modal'));
-    view.clearPosts();
     const posts = await backend.getPosts();
     view.buildPosts(posts, user);
     form.reset();
@@ -99,7 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
       button.addEventListener('click', async () => {
         await backend.deletePost(dialog.dataset.post_id);
         const upatedPosts = await backend.getPosts();
-        view.clearPosts();
         const user = backend.getCurrentUser();
         view.buildPosts(upatedPosts, user);
         view.closeModal(dialog);

@@ -1,6 +1,11 @@
 const view = (() => {
   const buildPosts = (posts, currentUser) => {
+    // build and rebuild posts
     const postsContainer = document.getElementById('posts-container');
+
+    while (postsContainer.hasChildNodes()) {
+      postsContainer.removeChild(postsContainer.firstChild);
+    }
 
     const button = document.getElementById('new-post-button');
     if (!currentUser) {
@@ -61,14 +66,6 @@ const view = (() => {
     }
   };
 
-  const clearPosts = () => {
-    const postsContainer = document.getElementById('posts-container');
-
-    while (postsContainer.hasChildNodes()) {
-      postsContainer.removeChild(postsContainer.firstChild);
-    }
-  };
-
   const openModal = (modal) => {
     modal.showModal();
   };
@@ -77,7 +74,7 @@ const view = (() => {
     modal.close();
   };
 
-  return { buildPosts, clearPosts, openModal, closeModal };
+  return { buildPosts, openModal, closeModal };
 })();
 
 export default view;
