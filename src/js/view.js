@@ -62,7 +62,7 @@ const view = (() => {
       announcement.dataset.author_id = post.author_id;
       announcement.dataset.post_id = post.id;
       announcement.appendChild(title);
-      if (currentUser) announcement.appendChild(byline);
+      announcement.appendChild(byline);
       announcement.appendChild(divider);
       announcement.appendChild(body);
 
