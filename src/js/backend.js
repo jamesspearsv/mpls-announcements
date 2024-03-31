@@ -18,7 +18,7 @@ const backend = (() => {
   }
 
   async function pushPost(post) {
-    if (!backend.checkAuth()) return;
+    if (!backend.getCurrentUser()) return;
 
     try {
       await pb.collection('posts').create(post);
@@ -28,7 +28,7 @@ const backend = (() => {
   }
 
   async function deletePost(id) {
-    if (!backend.checkAuth()) return false;
+    if (!backend.getCurrentUser()) return false;
 
     try {
       await pb.collection('posts').delete(id);
@@ -50,12 +50,12 @@ const backend = (() => {
     }
   }
 
-  function checkAuth() {
-    return pb.authStore.isValid;
-  }
-
   function getCurrentUser() {
     return pb.authStore.model;
+  }
+
+  function logoutUser() {
+    return pb.authStore.clear();
   }
 
   return {
@@ -63,8 +63,8 @@ const backend = (() => {
     pushPost,
     deletePost,
     authUser,
-    checkAuth,
     getCurrentUser,
+    logoutUser,
   };
 })();
 
