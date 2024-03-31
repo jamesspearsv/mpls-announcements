@@ -1,8 +1,13 @@
-import backend from './backend';
-
 const view = (() => {
   const buildPosts = (posts, currentUser) => {
     const postsContainer = document.getElementById('posts-container');
+
+    const button = document.getElementById('new-post-button');
+    if (!currentUser) {
+      button.textContent = 'Log In';
+    } else {
+      button.textContent = 'New Announcement';
+    }
 
     for (let post of posts) {
       const title = document.createElement('h2');
@@ -20,16 +25,13 @@ const view = (() => {
       let del;
       if (currentUser) {
         del = document.createElement('button');
-        del.textContent = 'Delete Post';
-        del.onclick = async () => {
-          // backend.deletePost(post.id);
-          const user = await backend.getCurrentUser();
-          const updatedPosts = await backend.getPosts();
-
-          console.log(user);
-          console.log(updatedPosts);
-          view.clearPosts();
-          view.buildPosts(updatedPosts, user);
+        del.classList.add('post-delete');
+        del.innerHTML = '<span>×</span>';
+        del.onclick = () => {
+          const deletionModal = document.getElementById('deletion-modal');
+          // set post_id data attribute to post id onclick. Used for post deletion
+          deletionModal.dataset.post_id = post.id;
+          openModal(deletionModal);
         };
       }
 

@@ -7,23 +7,13 @@ import '../styles/reset.css';
 import helper from './helper';
 import backend from './backend';
 import view from './view';
-import { assertArrowFunctionExpression } from '@babel/types';
+import { assertArrowFunctionExpression, updateExpression } from '@babel/types';
 
 document.addEventListener('DOMContentLoaded', () => {
-  const test = document.getElementById('test');
-  test.addEventListener('click', async () => {
-    const user = await backend.getCurrentUser();
-    if (user) {
-      console.log(user);
-    } else {
-      console.log('no user');
-    }
-  });
-
   // Get announcements when page is loaded.
   (async () => {
     const posts = await backend.getPosts();
-    const user = await backend.getCurrentUser();
+    const user = backend.getCurrentUser();
     view.buildPosts(posts, user);
   })();
 
@@ -31,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const newPostButton = document.getElementById('new-post-button');
   newPostButton.addEventListener('click', () => {
     // Select modal based on user auth status
-    const modal = backend.checkAuth()
+    const modal = backend.getCurrentUser()
       ? document.getElementById('post-modal')
       : document.getElementById('login-modal');
 
@@ -58,10 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
-    const post = await backend.getPosts();
-    const user = await backend.getCurrentUser();
+    const posts = await backend.getPosts();
+    const user = backend.getCurrentUser();
     view.clearPosts();
-    view.buildPosts(post, user);
+    view.buildPosts(posts, user);
   });
 
   // Handle new post submission
@@ -71,8 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const elements = event.target.elements;
     const user = backend.getCurrentUser();
 
-    console.log(user.name);
-
     // Build post from submitted data
     const post = helper.buildPost(
       elements.title.value,
@@ -81,14 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
       user.id
     );
 
-    console.log(post);
-
     await backend.pushPost(post);
 
     view.closeModal(document.getElementById('post-modal'));
     view.clearPosts();
     const posts = await backend.getPosts();
-    view.buildPosts(posts);
+    view.buildPosts(posts, user);
     form.reset();
   });
 
@@ -103,5 +89,26 @@ document.addEventListener('DOMContentLoaded', () => {
       view.closeModal(modal);
       form.reset();
     });
+  });
+
+  // Set action of deletion modal buttons
+  const deletionButtons = document.querySelectorAll('.deletion-button');
+  deletionButtons.forEach((button) => {
+    const dialog = button.parentElement.parentElement;
+    if (button.id === 'yes') {
+      button.addEventListener('click', async () => {
+        await backend.deletePost(dialog.dataset.post_id);
+        const upatedPosts = await backend.getPosts();
+        view.clearPosts();
+        const user = backend.getCurrentUser();
+        view.buildPosts(upatedPosts, user);
+        view.closeModal(dialog);
+      });
+    }
+    if (button.id === 'no') {
+      button.addEventListener('click', () => {
+        view.closeModal(dialog);
+      });
+    }
   });
 });

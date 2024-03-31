@@ -7,6 +7,7 @@ $post_container_width: 700px;
 $color_primary: #185c36;
 $color_secondary: #ed9821;
 $color_accent: #e5e5e5;
+$color_danger: #dc3545;
 $box_shadow: rgba(0, 0, 0, 0.1) -4px 9px 25px -6px;
 
 :root {
@@ -74,6 +75,23 @@ button {
   .post-byline {
     display: flex;
     align-items: center;
+
+    .post-delete {
+      margin-left: auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 5px;
+      height: 2rem;
+      width: 2rem;
+      background-color: $color_danger;
+
+      span {
+        font-size: 1rem;
+        color: #ffffff;
+      }
+    }
   }
 
   .post-author,

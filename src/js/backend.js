@@ -11,8 +11,6 @@ const backend = (() => {
         .collection('posts')
         .getFullList({ sort: '-created' });
 
-      console.log(records);
-
       return records;
     } catch (error) {
       console.log(error);
@@ -30,7 +28,7 @@ const backend = (() => {
   }
 
   async function deletePost(id) {
-    if (!backend.authUser()) return;
+    if (!backend.checkAuth()) return false;
 
     try {
       await pb.collection('posts').delete(id);
