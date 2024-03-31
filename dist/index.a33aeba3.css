@@ -215,6 +215,23 @@ button {
   display: flex;
 }
 
+#auth-heading {
+  align-items: center;
+  gap: 1rem;
+}
+
+#auth-heading h2 {
+  color: #185c36;
+}
+
+#auth-heading button {
+  color: #fff;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  padding: .5rem;
+}
+
 #posts-container {
   gap: 10px;
   width: 100%;
@@ -347,6 +364,13 @@ button {
 .modal .form .form-group {
   flex-direction: column;
   display: flex;
+}
+
+.modal .form .error-msg {
+  color: #dc3545;
+  text-align: center;
+  font-size: .9rem;
+  font-style: italic;
 }
 
 .modal::backdrop {

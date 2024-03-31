@@ -42,10 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!auth) {
       // TODO: Add error message to view
-      console.log('bad auth');
+      view.loginError('Invalid username or password');
       return;
     }
 
+    view.loginError('');
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
     const posts = await backend.getPosts();
@@ -107,5 +108,12 @@ document.addEventListener('DOMContentLoaded', () => {
         view.closeModal(dialog);
       });
     }
+  });
+
+  const logout = document.getElementById('logout');
+  logout.addEventListener('click', async () => {
+    backend.logoutUser();
+    const posts = await backend.getPosts();
+    view.buildPosts(posts, null);
   });
 });

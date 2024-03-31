@@ -620,9 +620,10 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const auth = await (0, _backendDefault.default).authUser(elements.user.value, elements.pwd.value);
         if (!auth) {
             // TODO: Add error message to view
-            console.log("bad auth");
+            (0, _viewDefault.default).loginError("Invalid username or password");
             return;
         }
+        (0, _viewDefault.default).loginError("");
         (0, _viewDefault.default).closeModal(document.getElementById("login-modal"));
         loginForm.reset();
         const posts = await (0, _backendDefault.default).getPosts();
@@ -668,9 +669,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
             (0, _viewDefault.default).closeModal(dialog);
         });
     });
+    const logout = document.getElementById("logout");
+    logout.addEventListener("click", async ()=>{
+        (0, _backendDefault.default).logoutUser();
+        const posts = await (0, _backendDefault.default).getPosts();
+        (0, _viewDefault.default).buildPosts(posts, null);
+    });
 });
 
-},{"normalize.css":"eLmrl","../styles/main.scss":"bo7w8","../styles/reset.css":"he3wz","./helper":"lVRAz","./backend":"cFxoJ","./view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@babel/types":"hnm3y"}],"eLmrl":[function() {},{}],"bo7w8":[function() {},{}],"he3wz":[function() {},{}],"lVRAz":[function(require,module,exports) {
+},{"normalize.css":"eLmrl","../styles/main.scss":"bo7w8","../styles/reset.css":"he3wz","./helper":"lVRAz","./backend":"cFxoJ","./view":"ky8MP","@babel/types":"hnm3y","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"eLmrl":[function() {},{}],"bo7w8":[function() {},{}],"he3wz":[function() {},{}],"lVRAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const helper = (()=>{
@@ -765,12 +772,16 @@ const backend = (()=>{
     function getCurrentUser() {
         return pb.authStore.model;
     }
+    function logoutUser() {
+        return pb.authStore.clear();
+    }
     return {
         getPosts,
         pushPost,
         deletePost,
         authUser,
-        getCurrentUser
+        getCurrentUser,
+        logoutUser
     };
 })();
 exports.default = backend;
@@ -1953,6 +1964,7 @@ const view = (()=>{
         // build and rebuild posts
         const postsContainer = document.getElementById("posts-container");
         while(postsContainer.hasChildNodes())postsContainer.removeChild(postsContainer.firstChild);
+        buildHeading(currentUser);
         const button = document.getElementById("new-post-button");
         if (!currentUser) button.textContent = "Log In";
         else button.textContent = "New Announcement";
@@ -1966,9 +1978,12 @@ const view = (()=>{
             const date = document.createElement("div");
             date.classList.add("post-date");
             date.textContent = new Date(post.created).toDateString();
-            let del;
-            if (currentUser) {
-                del = document.createElement("button");
+            const byline = document.createElement("div");
+            byline.classList.add("post-byline");
+            byline.appendChild(author);
+            byline.appendChild(date);
+            if (currentUser && (currentUser.id === post.author_id || currentUser.isAdmin)) {
+                const del = document.createElement("button");
                 del.classList.add("post-delete");
                 del.innerHTML = "<span>\xd7</span>";
                 del.onclick = ()=>{
@@ -1977,12 +1992,8 @@ const view = (()=>{
                     deletionModal.dataset.post_id = post.id;
                     openModal(deletionModal);
                 };
+                byline.appendChild(del);
             }
-            const byline = document.createElement("div");
-            byline.classList.add("post-byline");
-            byline.appendChild(author);
-            byline.appendChild(date);
-            if (currentUser) byline.appendChild(del);
             const divider = document.createElement("div");
             divider.classList.add("divider");
             const body = document.createElement("p");
@@ -1999,16 +2010,33 @@ const view = (()=>{
             postsContainer.appendChild(announcement);
         }
     };
+    const buildHeading = (currentUser)=>{
+        const authHeading = document.getElementById("auth-heading");
+        const username = document.getElementById("current-username");
+        if (!currentUser) {
+            authHeading.style.display = "none";
+            username.textContent = "NO USER";
+            return;
+        }
+        authHeading.style.display = "flex";
+        username.textContent = currentUser.name;
+        return;
+    };
     const openModal = (modal)=>{
         modal.showModal();
     };
     const closeModal = (modal)=>{
         modal.close();
     };
+    const loginError = (error)=>{
+        const errorMsg = document.getElementById("error-msg");
+        errorMsg.textContent = error;
+    };
     return {
         buildPosts,
         openModal,
-        closeModal
+        closeModal,
+        loginError
     };
 })();
 exports.default = view;

@@ -54,12 +54,17 @@ const backend = (() => {
     return pb.authStore.model;
   }
 
+  function logoutUser() {
+    return pb.authStore.clear();
+  }
+
   return {
     getPosts,
     pushPost,
     deletePost,
     authUser,
     getCurrentUser,
+    logoutUser,
   };
 })();
 

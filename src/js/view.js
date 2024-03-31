@@ -7,6 +7,8 @@ const view = (() => {
       postsContainer.removeChild(postsContainer.firstChild);
     }
 
+    buildHeading(currentUser);
+
     const button = document.getElementById('new-post-button');
     if (!currentUser) {
       button.textContent = 'Log In';
@@ -27,9 +29,16 @@ const view = (() => {
       date.classList.add('post-date');
       date.textContent = new Date(post.created).toDateString();
 
-      let del;
-      if (currentUser) {
-        del = document.createElement('button');
+      const byline = document.createElement('div');
+      byline.classList.add('post-byline');
+      byline.appendChild(author);
+      byline.appendChild(date);
+
+      if (
+        currentUser &&
+        (currentUser.id === post.author_id || currentUser.isAdmin)
+      ) {
+        const del = document.createElement('button');
         del.classList.add('post-delete');
         del.innerHTML = '<span>×</span>';
         del.onclick = () => {
@@ -38,13 +47,8 @@ const view = (() => {
           deletionModal.dataset.post_id = post.id;
           openModal(deletionModal);
         };
+        byline.appendChild(del);
       }
-
-      const byline = document.createElement('div');
-      byline.classList.add('post-byline');
-      byline.appendChild(author);
-      byline.appendChild(date);
-      if (currentUser) byline.appendChild(del);
 
       const divider = document.createElement('div');
       divider.classList.add('divider');
@@ -66,6 +70,20 @@ const view = (() => {
     }
   };
 
+  const buildHeading = (currentUser) => {
+    const authHeading = document.getElementById('auth-heading');
+    const username = document.getElementById('current-username');
+    if (!currentUser) {
+      authHeading.style.display = 'none';
+      username.textContent = 'NO USER';
+      return;
+    }
+
+    authHeading.style.display = 'flex';
+    username.textContent = currentUser.name;
+    return;
+  };
+
   const openModal = (modal) => {
     modal.showModal();
   };
@@ -74,7 +92,12 @@ const view = (() => {
     modal.close();
   };
 
-  return { buildPosts, openModal, closeModal };
+  const loginError = (error) => {
+    const errorMsg = document.getElementById('error-msg');
+    errorMsg.textContent = error;
+  };
+
+  return { buildPosts, openModal, closeModal, loginError };
 })();
 
 export default view;
