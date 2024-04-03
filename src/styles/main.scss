@@ -41,6 +41,20 @@ button {
   flex-wrap: wrap;
 }
 
+#auth-heading {
+  gap: 1rem;
+  align-items: center;
+
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem;
+    background-color: $color_danger;
+    color: #ffffff;
+  }
+}
+
+// Posts and post elements
 #posts-container {
   gap: 10px;
   overflow-y: scroll;
@@ -48,7 +62,6 @@ button {
   width: 100%;
 }
 
-// Posts and post elements
 .post {
   display: flex;
   flex-direction: column;
@@ -180,6 +193,13 @@ button {
     .form-group {
       display: flex;
       flex-direction: column;
+    }
+
+    .error-msg {
+      color: $color_danger;
+      font-size: 0.9rem;
+      font-style: italic;
+      text-align: center;
     }
   }
 }
