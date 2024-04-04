@@ -44,6 +44,11 @@ button {
 #auth-heading {
   gap: 1rem;
   align-items: center;
+  display: none;
+
+  h2 {
+    color: $color_secondary;
+  }
 
   button {
     border: none;

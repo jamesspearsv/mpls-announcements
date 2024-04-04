@@ -1,14 +1,15 @@
-// **STYLE IMPORTS** //
+// ** STYLE IMPORTS ** //
 import 'normalize.css';
 import '../styles/main.scss';
 import '../styles/reset.css';
 
-// **MODULE IMPORTS** //
+// ** MODULE IMPORTS ** //
 import helper from './helper';
 import backend from './backend';
 import view from './view';
 import { assertArrowFunctionExpression, updateExpression } from '@babel/types';
 
+// ** DRIVER CODE ** //
 document.addEventListener('DOMContentLoaded', () => {
   // Get announcements when page is loaded.
   (async () => {
@@ -17,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     view.buildPosts(posts, user);
   })();
 
-  // Control selecting and opening modal
+  // Control selecting and opening modals
   const newPostButton = document.getElementById('new-post-button');
   newPostButton.addEventListener('click', () => {
     // Select modal based on user auth status
@@ -29,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     view.openModal(modal);
   });
 
-  // Handle login submission
+  // Handle login form submission
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -40,12 +41,13 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.pwd.value
     );
 
+    // Return error if user auth fails
     if (!auth) {
-      // TODO: Add error message to view
       view.loginError('Invalid username or password');
       return;
     }
 
+    // If user auth successful process user login
     view.loginError('');
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
@@ -69,8 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
       user.id
     );
 
+    // Push post to backend
     await backend.pushPost(post);
 
+    // Handle UI after successful post
     view.closeModal(document.getElementById('post-modal'));
     const posts = await backend.getPosts();
     view.buildPosts(posts, user);
@@ -110,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Handle user log out
   const logout = document.getElementById('logout');
   logout.addEventListener('click', async () => {
     backend.logoutUser();
