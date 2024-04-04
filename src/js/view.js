@@ -1,20 +1,14 @@
 const view = (() => {
   const buildPosts = (posts, currentUser) => {
-    // build and rebuild posts
+    // FUNCTION THE BUILDS POST IN UI
     const postsContainer = document.getElementById('posts-container');
 
-    while (postsContainer.hasChildNodes()) {
-      postsContainer.removeChild(postsContainer.firstChild);
-    }
+    // Clear post in UI
+    clearPosts(postsContainer);
 
-    buildHeading(currentUser);
-
-    const button = document.getElementById('new-post-button');
-    if (!currentUser) {
-      button.textContent = 'Log In';
-    } else {
-      button.textContent = 'New Announcement';
-    }
+    // Update UI to stay in sync with data
+    updateHeading(currentUser);
+    updateUI(currentUser);
 
     for (let post of posts) {
       const title = document.createElement('h2');
@@ -34,6 +28,7 @@ const view = (() => {
       byline.appendChild(author);
       byline.appendChild(date);
 
+      // Render delete button is user is logged in, only renders on user's posts unless user is admin
       if (
         currentUser &&
         (currentUser.id === post.author_id || currentUser.isAdmin)
@@ -70,7 +65,7 @@ const view = (() => {
     }
   };
 
-  const buildHeading = (currentUser) => {
+  const updateHeading = (currentUser) => {
     const authHeading = document.getElementById('auth-heading');
     const username = document.getElementById('current-username');
     if (!currentUser) {
@@ -82,6 +77,21 @@ const view = (() => {
     authHeading.style.display = 'flex';
     username.textContent = currentUser.name;
     return;
+  };
+
+  const updateUI = (currentUser) => {
+    const button = document.getElementById('new-post-button');
+    if (!currentUser) {
+      button.textContent = 'Log In';
+    } else {
+      button.textContent = 'New Announcement';
+    }
+  };
+
+  const clearPosts = (parent) => {
+    while (parent.hasChildNodes()) {
+      parent.removeChild(parent.firstChild);
+    }
   };
 
   const openModal = (modal) => {

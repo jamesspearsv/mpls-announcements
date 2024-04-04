@@ -3,7 +3,7 @@ import PocketBase from 'pocketbase';
 const url = 'https://mpls.pockethost.io/';
 const pb = new PocketBase(url);
 
-// A module to handle api calls
+// A MODULE TO HANDLE CALLS TO POCKETBASE BACKEND
 const backend = (() => {
   async function getPosts() {
     try {
@@ -18,7 +18,7 @@ const backend = (() => {
   }
 
   async function pushPost(post) {
-    if (!backend.getCurrentUser()) return;
+    if (!backend.getCurrentUser()) return false;
 
     try {
       await pb.collection('posts').create(post);
@@ -38,6 +38,8 @@ const backend = (() => {
   }
 
   async function authUser(username, password) {
+    // Attempt to log in user.
+    // Return true if successful else return false
     try {
       const authData = await pb
         .collection('users')
@@ -51,6 +53,7 @@ const backend = (() => {
   }
 
   function getCurrentUser() {
+    // Check current user. Returns null if no user
     return pb.authStore.model;
   }
 
