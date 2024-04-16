@@ -587,15 +587,15 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 const helper = (()=>{
-    const buildPost = (title, body, author, author_id)=>{
+    function buildPost(title, body, author, author_id) {
         return {
             title,
             body,
             author,
             author_id
         };
-    };
-    const buildUser = (name, username, password, passwordConfirm)=>{
+    }
+    function buildUser(name, username, password, passwordConfirm) {
         return {
             username,
             emailVisibility: false,
@@ -604,10 +604,18 @@ const helper = (()=>{
             name,
             isAdmin: false
         };
-    };
+    }
+    function validateInput(input) {
+        const validity = input.validity;
+        // Validity Cases
+        //
+        if (validity.valueMissing) console.log("Value Missing");
+        if (validity.patternMismatch) console.log("Pattern Mismatch");
+    }
     return {
         buildPost,
-        buildUser
+        buildUser,
+        validateInput
     };
 })();
 exports.default = helper;

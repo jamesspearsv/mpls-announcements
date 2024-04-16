@@ -17,6 +17,10 @@ An announcement and posting system built using HTML, CSS, JavaScript, and Webpac
 - [ ] Build sign up function
   - [x] Create new user
   - [x] Throw error is user already exists
-  - [ ] Form validation
   - [x] UI error feedback
   - [ ] Build successful signup feedback
+- [ ] Signup Form validation
+  - [ ] Pattern match
+  - [ ] Required value
+  - [ ] Password confirmation
+  - [ ] Password length

@@ -9,8 +9,18 @@ import view from './view';
 document.addEventListener('DOMContentLoaded', () => {
   // Handle create user form submission
   const signup = document.getElementById('signup-form');
+  signup.setAttribute('novalidate', true);
+  signup.addEventListener(
+    'blur',
+    (event) => {
+      helper.validateInput(event.target);
+    },
+    true
+  );
+
   signup.addEventListener('submit', async (event) => {
     event.preventDefault();
+
     const elements = event.target.elements;
     const newUser = helper.buildUser(
       elements.name.value,
@@ -19,13 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
       elements.passwordConfirm.value
     );
 
-    const record = await backend.createUser(newUser);
-    console.log(record);
-    if (record.code) {
-      view.showError(record.data.username.message);
-    } else {
-      signup.reset();
-      view.showError('');
-    }
+    // const record = await backend.createUser(newUser);
+    // console.log(record);
+    // if (record.code) {
+    //   view.showError(record.data.username.message);
+    // } else {
+    //   signup.reset();
+    //   view.showError('');
+    // }
   });
 });

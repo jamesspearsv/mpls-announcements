@@ -1,14 +1,14 @@
 const helper = (() => {
-  const buildPost = (title, body, author, author_id) => {
+  function buildPost(title, body, author, author_id) {
     return {
       title,
       body,
       author,
       author_id,
     };
-  };
+  }
 
-  const buildUser = (name, username, password, passwordConfirm) => {
+  function buildUser(name, username, password, passwordConfirm) {
     return {
       username,
       emailVisibility: false,
@@ -17,9 +17,18 @@ const helper = (() => {
       name,
       isAdmin: false,
     };
-  };
+  }
 
-  return { buildPost, buildUser };
+  function validateInput(input) {
+    const validity = input.validity;
+
+    // Validity Cases
+    //
+    if (validity.valueMissing) console.log('Value Missing');
+    if (validity.patternMismatch) console.log('Pattern Mismatch');
+  }
+
+  return { buildPost, buildUser, validateInput };
 })();
 
 export default helper;

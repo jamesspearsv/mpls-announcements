@@ -597,20 +597,25 @@ var _viewDefault = parcelHelpers.interopDefault(_view);
 document.addEventListener("DOMContentLoaded", ()=>{
     // Handle create user form submission
     const signup = document.getElementById("signup-form");
+    signup.setAttribute("novalidate", true);
+    signup.addEventListener("blur", (event)=>{
+        (0, _helperDefault.default).validateInput(event.target);
+    }, true);
     signup.addEventListener("submit", async (event)=>{
         event.preventDefault();
         const elements = event.target.elements;
         const newUser = (0, _helperDefault.default).buildUser(elements.name.value, elements.username.value, elements.password.value, elements.passwordConfirm.value);
-        const record = await (0, _backendDefault.default).createUser(newUser);
-        console.log(record);
-        if (record.code) (0, _viewDefault.default).showError(record.data.username.message);
-        else {
-            signup.reset();
-            (0, _viewDefault.default).showError("");
-        }
+    // const record = await backend.createUser(newUser);
+    // console.log(record);
+    // if (record.code) {
+    //   view.showError(record.data.username.message);
+    // } else {
+    //   signup.reset();
+    //   view.showError('');
+    // }
     });
 });
 
-},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","../styles/login.scss":"3XIeY","./backend":"cFxoJ","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view":"ky8MP"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"3XIeY":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
+},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","../styles/login.scss":"3XIeY","./backend":"cFxoJ","./helper":"lVRAz","./view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"3XIeY":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
 
 //# sourceMappingURL=signup.dfdb1bb3.js.map
