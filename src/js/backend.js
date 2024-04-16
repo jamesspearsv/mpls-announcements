@@ -37,6 +37,17 @@ const backend = (() => {
     }
   }
 
+  async function createUser(user) {
+    try {
+      // create user in backend
+      const record = await pb.collection('users').create(user);
+      return record;
+    } catch (error) {
+      // throw error
+      return error.data;
+    }
+  }
+
   async function authUser(username, password) {
     // Attempt to log in user.
     // Return true if successful else return false
@@ -65,6 +76,7 @@ const backend = (() => {
     getPosts,
     pushPost,
     deletePost,
+    createUser,
     authUser,
     getCurrentUser,
     logoutUser,

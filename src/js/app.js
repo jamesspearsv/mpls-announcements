@@ -43,12 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Return error if user auth fails
     if (!auth) {
-      view.loginError('Invalid username or password');
+      view.showError('Invalid username or password');
       return;
     }
 
     // If user auth successful process user login
-    view.loginError('');
+    view.showError('');
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
     const posts = await backend.getPosts();

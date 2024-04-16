@@ -8,7 +8,18 @@ const helper = (() => {
     };
   };
 
-  return { buildPost };
+  const buildUser = (name, username, password, passwordConfirm) => {
+    return {
+      username,
+      emailVisibility: false,
+      password,
+      passwordConfirm,
+      name,
+      isAdmin: false,
+    };
+  };
+
+  return { buildPost, buildUser };
 })();
 
 export default helper;
