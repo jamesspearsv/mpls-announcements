@@ -1,6 +1,6 @@
 import '../styles/reset.css';
 import '../styles/main.scss';
-import '../styles/login.scss';
+import '../styles/signup.scss';
 
 import backend from './backend';
 import helper from './helper';
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const signup = document.getElementById('signup-form');
   signup.setAttribute('novalidate', true);
   signup.addEventListener(
-    'blur',
+    'focusout',
     (event) => {
       helper.validateInput(event.target);
     },
