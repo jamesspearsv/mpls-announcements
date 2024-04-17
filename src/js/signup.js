@@ -13,7 +13,12 @@ document.addEventListener('DOMContentLoaded', () => {
   signup.addEventListener(
     'focusout',
     (event) => {
-      helper.validateInput(event.target);
+      const invalid = helper.validateInput(event.target);
+      if (invalid) {
+        event.target.classList.add('error');
+      } else {
+        event.target.classList.remove('error');
+      }
     },
     true
   );

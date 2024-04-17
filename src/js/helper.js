@@ -22,10 +22,12 @@ const helper = (() => {
   function validateInput(input) {
     const validity = input.validity;
 
+    console.log(input);
+
     // Validity Cases
-    //
-    if (validity.valueMissing) console.log('Value Missing');
-    if (validity.patternMismatch) console.log('Pattern Mismatch');
+    if (validity.valid) return null;
+    if (validity.valueMissing) return 'Value Missing';
+    if (validity.patternMismatch) return 'Pattern Mismatch';
   }
 
   return { buildPost, buildUser, validateInput };

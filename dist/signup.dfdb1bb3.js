@@ -599,7 +599,9 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const signup = document.getElementById("signup-form");
     signup.setAttribute("novalidate", true);
     signup.addEventListener("focusout", (event)=>{
-        (0, _helperDefault.default).validateInput(event.target);
+        const invalid = (0, _helperDefault.default).validateInput(event.target);
+        if (invalid) event.target.classList.add("error");
+        else event.target.classList.remove("error");
     }, true);
     signup.addEventListener("submit", async (event)=>{
         event.preventDefault();

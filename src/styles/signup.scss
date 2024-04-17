@@ -2,9 +2,14 @@ div#signup-container {
   width: 40%;
   margin: auto;
   margin-top: 10%;
-  border: solid, 1px, black;
 }
 
-input.error {
-  // Do something
+.form-group label::after {
+  content: '*';
+  margin-left: 5px;
+  font-size: 0.75rem;
+}
+
+.form .form-group input.error {
+  outline: solid 2px #dc3545;
 }
