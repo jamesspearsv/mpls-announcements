@@ -14,3 +14,13 @@ An announcement and posting system built using HTML, CSS, JavaScript, and Webpac
 - [x] Clean up code
 - [x] Improve code comments
 - [x] Seperate buildPosts function into buildPosts, updateUI, and updateHeading functions
+- [ ] Build sign up function
+  - [x] Create new user
+  - [x] Throw error is user already exists
+  - [x] UI error feedback
+  - [ ] Build successful signup feedback
+- [x] Signup Form validation
+  - [x] Pattern match
+  - [x] Required value
+  - [x] Password confirmation
+  - [x] Password length

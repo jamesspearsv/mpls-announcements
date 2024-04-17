@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle login form submission
   const loginForm = document.getElementById('login-form');
+  const formError = document.getElementById('form-error');
   loginForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const elements = event.target.elements;
@@ -43,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Return error if user auth fails
     if (!auth) {
-      view.loginError('Invalid username or password');
+      view.showError(formError, 'Invalid username or password');
       return;
     }
 
     // If user auth successful process user login
-    view.loginError('');
+    view.showError(formError, '');
     view.closeModal(document.getElementById('login-modal'));
     loginForm.reset();
     const posts = await backend.getPosts();

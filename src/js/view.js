@@ -102,12 +102,11 @@ const view = (() => {
     modal.close();
   };
 
-  const loginError = (error) => {
-    const errorMsg = document.getElementById('error-msg');
-    errorMsg.textContent = error;
+  const showError = (element, error) => {
+    element.textContent = error;
   };
 
-  return { buildPosts, openModal, closeModal, loginError };
+  return { buildPosts, openModal, closeModal, showError };
 })();
 
 export default view;

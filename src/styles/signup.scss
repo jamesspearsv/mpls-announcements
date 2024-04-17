@@ -1,0 +1,16 @@
+div#signup-container {
+  width: 40%;
+  margin: auto;
+  margin-top: 10%;
+}
+
+span.error-msg::before {
+  content: '*';
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 0.75rem;
+}
+
+.form .form-group input.error {
+  outline: solid 2px #dc3545;
+}
