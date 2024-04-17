@@ -599,25 +599,39 @@ document.addEventListener("DOMContentLoaded", ()=>{
     const signup = document.getElementById("signup-form");
     signup.setAttribute("novalidate", true);
     signup.addEventListener("focusout", (event)=>{
+        // Only validated inputs with validated class
+        if (!event.target.classList.contains("validated")) return;
+        const errorMessage = event.target.previousElementSibling.children[0];
         const invalid = (0, _helperDefault.default).validateInput(event.target);
-        if (invalid) event.target.classList.add("error");
-        else event.target.classList.remove("error");
+        if (invalid) {
+            (0, _viewDefault.default).showError(errorMessage, invalid);
+            event.target.classList.add("error");
+        } else {
+            (0, _viewDefault.default).showError(errorMessage, "");
+            event.target.classList.remove("error");
+        }
     }, true);
     signup.addEventListener("submit", async (event)=>{
         event.preventDefault();
+        const valid = (0, _helperDefault.default).validateForm(signup);
+        const error = document.getElementById("form-error");
+        if (!valid) {
+            (0, _viewDefault.default).showError(error, "Please complete form correctly");
+            return;
+        } else (0, _viewDefault.default).showError(error, "");
         const elements = event.target.elements;
         const newUser = (0, _helperDefault.default).buildUser(elements.name.value, elements.username.value, elements.password.value, elements.passwordConfirm.value);
-    // const record = await backend.createUser(newUser);
-    // console.log(record);
-    // if (record.code) {
-    //   view.showError(record.data.username.message);
-    // } else {
-    //   signup.reset();
-    //   view.showError('');
-    // }
+        const record = await (0, _backendDefault.default).createUser(newUser);
+        if (record.code) (0, _viewDefault.default).showError(error, record.data.username.message);
+        else {
+            signup.reset();
+            (0, _viewDefault.default).showError(error, "");
+            const success = document.getElementById("success-modal");
+            (0, _viewDefault.default).openModal(success);
+        }
     });
 });
 
-},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","./backend":"cFxoJ","./helper":"lVRAz","./view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../styles/signup.scss":"aohcG"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"aohcG":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
+},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","./backend":"cFxoJ","./helper":"lVRAz","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view":"ky8MP","../styles/signup.scss":"aohcG"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"aohcG":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
 
 //# sourceMappingURL=signup.dfdb1bb3.js.map

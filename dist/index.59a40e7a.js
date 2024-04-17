@@ -615,17 +615,18 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
     // Handle login form submission
     const loginForm = document.getElementById("login-form");
+    const formError = document.getElementById("form-error");
     loginForm.addEventListener("submit", async (event)=>{
         event.preventDefault();
         const elements = event.target.elements;
         const auth = await (0, _backendDefault.default).authUser(elements.user.value, elements.pwd.value);
         // Return error if user auth fails
         if (!auth) {
-            (0, _viewDefault.default).showError("Invalid username or password");
+            (0, _viewDefault.default).showError(formError, "Invalid username or password");
             return;
         }
         // If user auth successful process user login
-        (0, _viewDefault.default).showError("");
+        (0, _viewDefault.default).showError(formError, "");
         (0, _viewDefault.default).closeModal(document.getElementById("login-modal"));
         loginForm.reset();
         const posts = await (0, _backendDefault.default).getPosts();

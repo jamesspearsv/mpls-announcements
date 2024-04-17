@@ -4,8 +4,9 @@ div#signup-container {
   margin-top: 10%;
 }
 
-.form-group label::after {
+span.error-msg::before {
   content: '*';
+  margin-right: 5px;
   margin-left: 5px;
   font-size: 0.75rem;
 }

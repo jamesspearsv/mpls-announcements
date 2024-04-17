@@ -142,14 +142,14 @@
       this[globalName] = mainExports;
     }
   }
-})({"8xj7S":[function(require,module,exports) {
+})({"f8wfF":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
 var HMR_USE_SSE = false;
-module.bundle.HMR_BUNDLE_ID = "6c40251a4483d91b";
+module.bundle.HMR_BUNDLE_ID = "c0729ae2298f60af";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, HMR_USE_SSE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -586,6 +586,8 @@ function hmrAccept(bundle /*: ParcelRequire */ , id /*: string */ ) {
 },{}],"lVRAz":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
+var _view = require("./view");
+var _viewDefault = parcelHelpers.interopDefault(_view);
 const helper = (()=>{
     function buildPost(title, body, author, author_id) {
         return {
@@ -607,20 +609,23 @@ const helper = (()=>{
     }
     function validateInput(input) {
         const validity = input.validity;
-        console.log(validity);
         // Validity Cases
         if (validity.valid) return null;
         if (validity.valueMissing) return "Required";
         if (validity.patternMismatch) {
-            if (input.name === "name") return "Should match example -- John S";
+            if (input.name === "name") return "Please match format: John S";
             if (input.name === "username") return "Should be lowercase, no spaces";
         }
-        if (validity.tooShort || validity.tooLong) return "Enter a 5 to 10 character password";
+        if (validity.tooShort) return "Please use at least 5 characters";
     }
     function validateForm(form) {
         const elements = form.elements;
-        console.log(elements.passwordConfirm.previousElementSibling.children[0]);
-        if (elements.password.value !== elements.passwordConfirm.value) console.log("Password mismatch");
+        const error = elements.passwordConfirm.previousElementSibling.children[0];
+        if (elements.password.value !== elements.passwordConfirm.value) {
+            console.log(error);
+            (0, _viewDefault.default).showError(error, "Passwords do not match");
+            return false;
+        } else (0, _viewDefault.default).showError(error, "");
         // Check form validity
         return form.checkValidity();
     }
@@ -633,7 +638,7 @@ const helper = (()=>{
 })();
 exports.default = helper;
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./view":"ky8MP"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -663,7 +668,100 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"cFxoJ":[function(require,module,exports) {
+},{}],"ky8MP":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+const view = (()=>{
+    const buildPosts = (posts, currentUser)=>{
+        // FUNCTION THE BUILDS POST IN UI
+        const postsContainer = document.getElementById("posts-container");
+        // Clear post in UI
+        clearPosts(postsContainer);
+        // Update UI to stay in sync with data
+        updateHeading(currentUser);
+        updateUI(currentUser);
+        for (let post of posts){
+            const title = document.createElement("h2");
+            title.classList.add("post-title");
+            title.textContent = post.title;
+            const author = document.createElement("div");
+            author.classList.add("post-author");
+            author.textContent = post.author;
+            const date = document.createElement("div");
+            date.classList.add("post-date");
+            date.textContent = new Date(post.created).toDateString();
+            const byline = document.createElement("div");
+            byline.classList.add("post-byline");
+            byline.appendChild(author);
+            byline.appendChild(date);
+            // Render delete button is user is logged in, only renders on user's posts unless user is admin
+            if (currentUser && (currentUser.id === post.author_id || currentUser.isAdmin)) {
+                const del = document.createElement("button");
+                del.classList.add("post-delete");
+                del.innerHTML = "<span>\xd7</span>";
+                del.onclick = ()=>{
+                    const deletionModal = document.getElementById("deletion-modal");
+                    // set post_id data attribute to post id onclick. Used for post deletion
+                    deletionModal.dataset.post_id = post.id;
+                    openModal(deletionModal);
+                };
+                byline.appendChild(del);
+            }
+            const divider = document.createElement("div");
+            divider.classList.add("divider");
+            const body = document.createElement("p");
+            body.classList.add("post-body");
+            body.textContent = post.body;
+            const announcement = document.createElement("div");
+            announcement.classList.add("post");
+            announcement.dataset.author_id = post.author_id;
+            announcement.dataset.post_id = post.id;
+            announcement.appendChild(title);
+            announcement.appendChild(byline);
+            announcement.appendChild(divider);
+            announcement.appendChild(body);
+            postsContainer.appendChild(announcement);
+        }
+    };
+    const updateHeading = (currentUser)=>{
+        const authHeading = document.getElementById("auth-heading");
+        const username = document.getElementById("current-username");
+        if (!currentUser) {
+            authHeading.style.display = "none";
+            username.textContent = "NO USER";
+            return;
+        }
+        authHeading.style.display = "flex";
+        username.textContent = currentUser.name;
+        return;
+    };
+    const updateUI = (currentUser)=>{
+        const button = document.getElementById("new-post-button");
+        if (!currentUser) button.textContent = "Log In";
+        else button.textContent = "New Announcement";
+    };
+    const clearPosts = (parent)=>{
+        while(parent.hasChildNodes())parent.removeChild(parent.firstChild);
+    };
+    const openModal = (modal)=>{
+        modal.showModal();
+    };
+    const closeModal = (modal)=>{
+        modal.close();
+    };
+    const showError = (element, error)=>{
+        element.textContent = error;
+    };
+    return {
+        buildPosts,
+        openModal,
+        closeModal,
+        showError
+    };
+})();
+exports.default = view;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"cFxoJ":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _pocketbase = require("pocketbase");
@@ -1908,99 +2006,6 @@ class AsyncAuthStore extends BaseAuthStore {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"ky8MP":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-const view = (()=>{
-    const buildPosts = (posts, currentUser)=>{
-        // FUNCTION THE BUILDS POST IN UI
-        const postsContainer = document.getElementById("posts-container");
-        // Clear post in UI
-        clearPosts(postsContainer);
-        // Update UI to stay in sync with data
-        updateHeading(currentUser);
-        updateUI(currentUser);
-        for (let post of posts){
-            const title = document.createElement("h2");
-            title.classList.add("post-title");
-            title.textContent = post.title;
-            const author = document.createElement("div");
-            author.classList.add("post-author");
-            author.textContent = post.author;
-            const date = document.createElement("div");
-            date.classList.add("post-date");
-            date.textContent = new Date(post.created).toDateString();
-            const byline = document.createElement("div");
-            byline.classList.add("post-byline");
-            byline.appendChild(author);
-            byline.appendChild(date);
-            // Render delete button is user is logged in, only renders on user's posts unless user is admin
-            if (currentUser && (currentUser.id === post.author_id || currentUser.isAdmin)) {
-                const del = document.createElement("button");
-                del.classList.add("post-delete");
-                del.innerHTML = "<span>\xd7</span>";
-                del.onclick = ()=>{
-                    const deletionModal = document.getElementById("deletion-modal");
-                    // set post_id data attribute to post id onclick. Used for post deletion
-                    deletionModal.dataset.post_id = post.id;
-                    openModal(deletionModal);
-                };
-                byline.appendChild(del);
-            }
-            const divider = document.createElement("div");
-            divider.classList.add("divider");
-            const body = document.createElement("p");
-            body.classList.add("post-body");
-            body.textContent = post.body;
-            const announcement = document.createElement("div");
-            announcement.classList.add("post");
-            announcement.dataset.author_id = post.author_id;
-            announcement.dataset.post_id = post.id;
-            announcement.appendChild(title);
-            announcement.appendChild(byline);
-            announcement.appendChild(divider);
-            announcement.appendChild(body);
-            postsContainer.appendChild(announcement);
-        }
-    };
-    const updateHeading = (currentUser)=>{
-        const authHeading = document.getElementById("auth-heading");
-        const username = document.getElementById("current-username");
-        if (!currentUser) {
-            authHeading.style.display = "none";
-            username.textContent = "NO USER";
-            return;
-        }
-        authHeading.style.display = "flex";
-        username.textContent = currentUser.name;
-        return;
-    };
-    const updateUI = (currentUser)=>{
-        const button = document.getElementById("new-post-button");
-        if (!currentUser) button.textContent = "Log In";
-        else button.textContent = "New Announcement";
-    };
-    const clearPosts = (parent)=>{
-        while(parent.hasChildNodes())parent.removeChild(parent.firstChild);
-    };
-    const openModal = (modal)=>{
-        modal.showModal();
-    };
-    const closeModal = (modal)=>{
-        modal.close();
-    };
-    const showError = (element, error)=>{
-        element.textContent = error;
-    };
-    return {
-        buildPosts,
-        openModal,
-        closeModal,
-        showError
-    };
-})();
-exports.default = view;
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["f8wfF"], null, "parcelRequire9b17")
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["8xj7S"], null, "parcelRequire9b17")
-
-//# sourceMappingURL=index.4483d91b.js.map
+//# sourceMappingURL=index.298f60af.js.map

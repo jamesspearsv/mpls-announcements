@@ -5,9 +5,10 @@ div#signup-container {
   margin: 10% auto auto;
 }
 
-.form-group label:after {
+span.error-msg:before {
   content: "*";
   margin-left: 5px;
+  margin-right: 5px;
   font-size: .75rem;
 }
 
@@ -200,7 +201,7 @@ button {
 .modal .form .error-msg {
   color: #dc3545;
   text-align: center;
-  font-size: .9rem;
+  font-size: .8rem;
   font-style: italic;
 }
 

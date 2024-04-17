@@ -102,9 +102,8 @@ const view = (() => {
     modal.close();
   };
 
-  const showError = (error) => {
-    const errorMsg = document.getElementById('error-msg');
-    errorMsg.textContent = error;
+  const showError = (element, error) => {
+    element.textContent = error;
   };
 
   return { buildPosts, openModal, closeModal, showError };
