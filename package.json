@@ -25,6 +25,7 @@
     "parcel": "^2.12.0"
   },
   "dependencies": {
-    "pocketbase": "^0.21.1"
+    "pocketbase": "^0.21.1",
+    "quill": "^2.0.1"
   }
 }

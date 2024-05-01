@@ -18,9 +18,10 @@ An announcement and posting system built using HTML, CSS, JavaScript, and Webpac
   - [x] Create new user
   - [x] Throw error is user already exists
   - [x] UI error feedback
-  - [ ] Build successful signup feedback
+  - [x] Build successful signup feedback
 - [x] Signup Form validation
   - [x] Pattern match
   - [x] Required value
   - [x] Password confirmation
   - [x] Password length
+- [ ] Add rich text editor to posting form [Quill](https://quilljs.com/docs/quickstart)

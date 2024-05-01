@@ -7,6 +7,7 @@ import '../styles/reset.css';
 import helper from './helper';
 import backend from './backend';
 import view from './view';
+import './quill';
 import { assertArrowFunctionExpression, updateExpression } from '@babel/types';
 
 // ** DRIVER CODE ** //
