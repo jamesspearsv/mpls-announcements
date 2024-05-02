@@ -1,1 +1,44 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MPLS Announcements | Sign Up</title><script type="module" src="index.53236992.js"></script><link rel="stylesheet" href="signup.9dd91bfb.css"><script type="module" src="signup.fa595686.js" defer></script></head><body> <div class="modal" id="signup-container"> <form id="signup-form" class="form"> <div class="form-group"> <label for="name">Name<span class="error-msg"></span></label> <input type="text" class="validated" placeholder="First name and last initial" name="name" pattern="[A-Z][A-Za-z]+\s[A-Za-z]" required> </div> <div class="form-group"> <label for="username">Username<span class="error-msg"></span></label> <input type="text" class="validated" placeholder="Lower case with no spaces" name="username" pattern="[a-z0-9]+" required> </div> <div class="form-group"> <label for="password">Password<span class="error-msg"></span></label> <input type="password" class="validated" name="password" id="password" placeholder="Use at least 5 characters" minlength="5" maxlength="15" required> </div> <div class="form-group"> <label for="passwordConfirm">Confirm Password<span class="error-msg"></span></label> <input type="password" class="validated" name="passwordConfirm" id="passwordConfirm" placeholder="Match the password above" minlength="5" maxlength="15" required> </div> <div class="form-group"> <button type="submit">Create Account</button> </div> <div id="form-error" class="error-msg"></div> </form> </div> <dialog id="success-modal" class="modal"> <div class="modal-heading"> <h1 class="modal-title">Success!</h1> </div> <p> You have successfully signed up. Visit <a href="/">here</a> to start posting. </p> </dialog> </body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPLS Announcements | Sign Up</title>
+    <script src="/index.2cc6c4ca.js"></script><link rel="stylesheet" href="/signup.c7fd2d10.css"><script src="/signup.dfdb1bb3.js" defer=""></script>
+  </head>
+  <body>
+    <div class="modal" id="signup-container">
+      <form id="signup-form" class="form">
+        <div class="form-group">
+          <label for="name">Name<span class="error-msg"></span></label>
+          <input type="text" class="validated" placeholder="First name and last initial" name="name" pattern="[A-Z][A-Za-z]+\s[A-Za-z]" required="">
+        </div>
+        <div class="form-group">
+          <label for="username">Username<span class="error-msg"></span></label>
+          <input type="text" class="validated" placeholder="Lower case with no spaces" name="username" pattern="[a-z0-9]+" required="">
+        </div>
+        <div class="form-group">
+          <label for="password">Password<span class="error-msg"></span></label>
+          <input type="password" class="validated" name="password" id="password" placeholder="Use at least 5 characters" minlength="5" maxlength="15" required="">
+        </div>
+        <div class="form-group">
+          <label for="passwordConfirm">Confirm Password<span class="error-msg"></span></label>
+          <input type="password" class="validated" name="passwordConfirm" id="passwordConfirm" placeholder="Match the password above" minlength="5" maxlength="15" required="">
+        </div>
+        <div class="form-group">
+          <button type="submit">Create Account</button>
+        </div>
+        <div id="form-error" class="error-msg"></div>
+      </form>
+    </div>
+    <dialog id="success-modal" class="modal">
+      <div class="modal-heading">
+        <h1 class="modal-title">Success!</h1>
+      </div>
+      <p>
+        You have successfully signed up. Visit
+        <a href="/">here</a> to start posting.
+      </p>
+    </dialog>
+  </body>
+</html>
