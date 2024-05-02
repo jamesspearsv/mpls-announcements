@@ -1,13 +1,9 @@
-import 'quill/dist/quill.snow.css';
-import Quill from 'quill';
+import '../styles/quill.scss';
 
 document.addEventListener('DOMContentLoaded', () => {
   const options = {
-    module: {
-      toolbar: {
-        container: '#toolbar',
-        formats: ['bold', 'italic', 'link'],
-      },
+    modules: {
+      toolbar: ['bold', 'italic', 'underline'],
     },
     theme: 'snow',
     placeholder: 'Write your post here...',

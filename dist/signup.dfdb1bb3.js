@@ -632,6 +632,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
     });
 });
 
-},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","../styles/signup.scss":"aohcG","./backend":"cFxoJ","./helper":"lVRAz","./view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"aohcG":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
+},{"../styles/reset.css":"he3wz","../styles/main.scss":"bo7w8","./backend":"cFxoJ","./helper":"lVRAz","./view":"ky8MP","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","../styles/signup.scss":"aohcG"}],"he3wz":[function() {},{}],"bo7w8":[function() {},{}],"aohcG":[function() {},{}]},["8OPMD","kcMzV"], "kcMzV", "parcelRequire9b17")
 
 //# sourceMappingURL=signup.dfdb1bb3.js.map
