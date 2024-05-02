@@ -7,6 +7,7 @@ import '../styles/reset.css';
 import helper from './helper';
 import backend from './backend';
 import view from './view';
+import quill from './quill';
 import { assertArrowFunctionExpression, updateExpression } from '@babel/types';
 
 // ** DRIVER CODE ** //
@@ -67,10 +68,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Build post from submitted data
     const post = helper.buildPost(
       elements.title.value,
-      elements.body.value,
+      quill.getContent(),
       user.name,
       user.id
     );
+
+    // console.log(post);
 
     // Push post to backend
     await backend.pushPost(post);

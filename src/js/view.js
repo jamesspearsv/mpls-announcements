@@ -48,9 +48,9 @@ const view = (() => {
       const divider = document.createElement('div');
       divider.classList.add('divider');
 
-      const body = document.createElement('p');
+      const body = document.createElement('div');
       body.classList.add('post-body');
-      body.textContent = post.body;
+      body.innerHTML = post.body;
 
       const announcement = document.createElement('div');
       announcement.classList.add('post');
