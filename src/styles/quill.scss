@@ -14,11 +14,11 @@
 }
 
 .post-body ul {
-  list-style: disc inside;
+  list-style: disc inside !important;
   padding-left: 10px;
 }
 
 .post-body ol {
-  list-style: decimal inside;
+  list-style: decimal inside !important;
   padding-left: 10px;
 }
