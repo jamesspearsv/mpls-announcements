@@ -9,9 +9,8 @@
     "test": "jest ./src/tests/*.test.js",
     "watch": "jest --watchAll",
     "dev": "parcel -p 3000 src/pages/*.html",
-    "build": "rm -rf dist/* && parcel build --dist-dir docs  src/pages/*.html --public-url ./",
-    "publish": "git subtree push --prefix dist origin gh-pages",
-    "clean": "rm -rf docs/*"
+    "build": "npm run clean && parcel build --dist-dir docs  src/pages/*.html --public-url ./",
+    "clean": "rm -rf docs/*.css docs/*.css.map docs/*.js docs/*.js.map docs/*.html"
   },
   "author": "",
   "license": "ISC",
