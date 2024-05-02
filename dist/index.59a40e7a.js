@@ -597,6 +597,7 @@ var _backendDefault = parcelHelpers.interopDefault(_backend);
 var _view = require("./view");
 var _viewDefault = parcelHelpers.interopDefault(_view);
 var _quill = require("./quill");
+var _quillDefault = parcelHelpers.interopDefault(_quill);
 var _types = require("@babel/types");
 // ** DRIVER CODE ** //
 document.addEventListener("DOMContentLoaded", ()=>{
@@ -641,7 +642,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
         const elements = event.target.elements;
         const user = (0, _backendDefault.default).getCurrentUser();
         // Build post from submitted data
-        const post = (0, _helperDefault.default).buildPost(elements.title.value, elements.body.value, user.name, user.id);
+        const post = (0, _helperDefault.default).buildPost(elements.title.value, (0, _quillDefault.default).getContent(), user.name, user.id);
+        // console.log(post);
         // Push post to backend
         await (0, _backendDefault.default).pushPost(post);
         // Handle UI after successful post
@@ -16536,22 +16538,44 @@ function gatherSequenceExpressions(nodes, scope, declars) {
 }
 
 },{"11be237bdd22af45":"jZjJ0","c4daa1b76c4fa398":"lrUKn","6483713032f1e7e5":"fvX9A","632cabe7c44767ae":"dSpB5"}],"i5Sud":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 var _quillScss = require("../styles/quill.scss");
-document.addEventListener("DOMContentLoaded", ()=>{
+const quill = (()=>{
     const options = {
         modules: {
             toolbar: [
-                "bold",
-                "italic",
-                "underline"
+                [
+                    "bold",
+                    "italic",
+                    "underline",
+                    "strike"
+                ],
+                [
+                    "link",
+                    {
+                        list: "ordered"
+                    },
+                    {
+                        list: "bullet"
+                    }
+                ]
             ]
         },
         theme: "snow",
         placeholder: "Write your post here..."
     };
-    new Quill("#editor", options);
-});
+    const editor = new Quill("#editor", options);
+    function getContent() {
+        return editor.getSemanticHTML();
+    }
+    return {
+        editor,
+        getContent
+    };
+})();
+exports.default = quill;
 
-},{"../styles/quill.scss":"rP8aM"}],"rP8aM":[function() {},{}]},["aP7aF","8lRBv"], "8lRBv", "parcelRequire9b17")
+},{"../styles/quill.scss":"rP8aM","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"rP8aM":[function() {},{}]},["aP7aF","8lRBv"], "8lRBv", "parcelRequire9b17")
 
 //# sourceMappingURL=index.59a40e7a.js.map

@@ -1,13 +1,23 @@
 import '../styles/quill.scss';
 
-document.addEventListener('DOMContentLoaded', () => {
+const quill = (() => {
   const options = {
     modules: {
-      toolbar: ['bold', 'italic', 'underline'],
+      toolbar: [
+        ['bold', 'italic', 'underline', 'strike'],
+        ['link', { list: 'ordered' }, { list: 'bullet' }],
+      ],
     },
     theme: 'snow',
     placeholder: 'Write your post here...',
   };
+  const editor = new Quill('#editor', options);
 
-  new Quill('#editor', options);
-});
+  function getContent() {
+    return editor.getSemanticHTML();
+  }
+
+  return { editor, getContent };
+})();
+
+export default quill;

@@ -188,8 +188,17 @@ template, [hidden] {
 
 #editor {
   background-color: #e5e5e5;
-  width: 45dvw;
-  height: 25vh;
+  border: none;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  width: 55dvw;
+  height: 35vh;
+  font-size: 1rem;
+}
+
+.ql-toolbar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 :root {

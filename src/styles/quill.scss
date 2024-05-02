@@ -1,5 +1,14 @@
 #editor {
-  width: 45dvw;
-  height: 25vh;
+  width: 55dvw;
+  height: 35vh;
+  font-size: 1rem;
   background-color: #e5e5e5;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: none;
+}
+
+.ql-toolbar {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
