@@ -9,10 +9,11 @@
     "test": "jest ./src/tests/*.test.js",
     "watch": "jest --watchAll",
     "dev": "parcel -p 3000 src/pages/*.html",
-    "build": "npm run clean && parcel build --dist-dir docs  src/pages/*.html --public-url ./",
-    "clean": "rm -rf docs/*.css docs/*.css.map docs/*.js docs/*.js.map docs/*.html"
+    "build": "npm run clean && parcel build src/pages/*.html",
+    "publish": "npm run clean && parcel build --dist-dir docs  src/pages/*.html --public-url ./",
+    "clean": "rm -rf dist/*.css disc/*.css.map dist/*.js dist/*.js.map dist/*.html"
   },
-  "author": "",
+  "author": "James Spears, V",
   "license": "ISC",
   "devDependencies": {
     "@parcel/babel-preset-env": "^2.12.0",
