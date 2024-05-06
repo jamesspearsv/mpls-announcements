@@ -10,7 +10,6 @@
     "watch": "jest --watchAll",
     "dev": "parcel -p 3000 src/pages/*.html",
     "build": "npm run clean && parcel build src/pages/*.html",
-    "publish": "npm run clean && parcel build --dist-dir docs  src/pages/*.html --public-url ./",
     "clean": "rm -rf dist/*.css dist/*.css.map dist/*.js dist/*.js.map dist/*.html"
   },
   "author": "James Spears, V",
