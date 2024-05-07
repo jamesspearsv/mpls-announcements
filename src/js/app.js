@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // console.log(post);
 
     // Push post to backend
-    // await backend.pushPost(post);
+    await backend.pushPost(post);
     console.log('posting...');
 
     // Handle UI after successful post
