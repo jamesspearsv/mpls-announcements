@@ -17,7 +17,11 @@ const quill = (() => {
     return editor.getSemanticHTML();
   }
 
-  return { editor, getContent };
+  function resetEditor() {
+    editor.setContents([{ insert: '\n' }]);
+  }
+
+  return { editor, getContent, resetEditor };
 })();
 
 export default quill;

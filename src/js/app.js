@@ -76,13 +76,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // console.log(post);
 
     // Push post to backend
-    await backend.pushPost(post);
+    // await backend.pushPost(post);
+    console.log('posting...');
 
     // Handle UI after successful post
     view.closeModal(document.getElementById('post-modal'));
     const posts = await backend.getPosts();
     view.buildPosts(posts, user);
     form.reset();
+    quill.resetEditor();
   });
 
   //  Set modal close buttons
